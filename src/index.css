@@ -1,0 +1,241 @@
+body {
+  background-color: #edeade;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+}
+
+.container0 {
+width: 100%;
+}
+.container1 {
+  width: auto;
+}
+
+.student,
+.tutor{
+  background-color: white;
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-right: 20px;
+}
+
+.new-div {
+  background-color: white;
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-right: 20px;
+}
+
+.student, .tutor:hover{
+  cursor: pointer;
+}
+
+.student h1, .tutor h1 {
+  font-size: 26px;
+}
+
+.hide-button {
+  position: relative;
+  left: -38%;
+}
+
+#signupbtn{
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.sidebar {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #f1f1f1;
+  overflow-x: hidden;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-header {
+  text-align: center;
+}
+
+.sidebar-avatar {
+  margin-top: 20px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #ff0000;
+}
+
+.main-content {
+  margin: 20px;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+.resultstbl {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  border-radius: 5%;
+  width: 100%;
+  text-align: center;
+  margin: 10px;
+}
+
+.resultstbl tr:nth-child(1),
+.resultstbl tr:nth-child(2) {
+  background-color: #fff;
+}
+
+.resultstbl tr:nth-child(n+3):nth-child(-n+5) {
+  background-color: #2E8B57;
+  color: #fff;
+}
+
+
+.resultstbl td {
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.resultstbl2 {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  border-radius: 5%;
+  width: 100%;
+  text-align: center;
+  margin: 10px;
+}
+
+.resultstbl2 tr:nth-child(1),
+.resultstbl2 tr:nth-child(2) {
+  background-color: #fff;
+}
+
+.resultstbl2 tr:nth-child(n+3):nth-child(-n+5) {
+  background-color: #272885;
+  color: #fff;
+}
+
+
+.resultstbl2 td {
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.accbaltbl {
+  background-color: white;
+  padding: 20px;
+}
+
+
+.accbaltbl thead td {
+  background-color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.accbaltbl tbody td {
+  background-color: white;
+  text-align: center;
+  color: grey;
+  font-weight: bold;
+}
+
+.stuRows{
+  margin: 10px;
+}
+
+.paddedDiv{
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  width: 100%;
+}
+.paddedDiv2{
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.menuItem:hover{
+  background: grey;
+  color: white;
+  border: none;
+}
+
+.menuItem{
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  background: #2f32ce;
+  border-radius: 5px;
+  margin:5px;
+  color: white;
+}
+
+#menuDiv{
+  margin-top: 5px;
+  border-radius: 10px;
+}
+
+.menuItem2:hover{
+  background: grey;
+  color: white;
+  border: none;
+}
+
+.menuItem2{
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  background: #db1e1e;
+  border-radius: 5px;
+  margin:5px;
+  color: white;
+}
+
+.record-row {
+  border: 1px solid #ddd; /* Add border between records */
+  margin-bottom: 10px; /* Add margin between records */
+  padding: 10px; /* Add padding for spacing */
+}
+
+.record-col {
+  border-right: 1px solid #ddd; /* Add border between columns */
+  padding: 10px; /* Add padding for spacing */
+}
+
+.record-col:last-child {
+  border-right: none; /* Remove right border for the last column */
+}
