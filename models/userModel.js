@@ -70,4 +70,14 @@ userSchema.statics.login = async function(username, password) {
   return user;
 };
 
+// static getAllUsers method
+userSchema.statics.getAllUsers = async function() {
+  try {
+    const users = await this.find({}, { password: 0 });
+    return users;
+  } catch (error) {
+    throw Error('Error fetching users');
+  }
+};
+
 module.exports = mongoose.model('user', userSchema, 'users');

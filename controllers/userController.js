@@ -5,6 +5,16 @@ const createToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
 }
 
+// get all users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.getAllUsers()
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
 // login a user
 const loginUser = async (req, res) => {
   const {username, password} = req.body
@@ -48,4 +58,4 @@ const signupUser = async (req, res) => {
   }
 }
 
-module.exports = { signupUser, loginUser }
+module.exports = { signupUser, loginUser, getAllUsers }
