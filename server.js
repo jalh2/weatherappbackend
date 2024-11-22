@@ -42,12 +42,31 @@ io.on('connection', (socket) => {
   console.log('A user connected:', socket.id)
 
   // Listen for user status updates from the client
-  socket.on('user-status', (data) => {
+  socket.on('user-status', async (data) => {
     console.log('User status update received:', data)
     
-    // Broadcast this update to all connected clients except the sender
-    socket.broadcast.emit('update-user-status', data)
-  })
+    try {
+      // Update user status in database
+      await mongoose.model('user').findByIdAndUpdate(
+        data.userId,
+        {
+          activeStatus: data.activeStatus,
+          latitude: data.latitude,
+          longitude: data.longitude
+        }
+      );
+      
+      // Broadcast this update to all connected clients
+      io.emit('update-user-status', {
+        _id: data.userId,
+        activeStatus: data.activeStatus,
+        latitude: data.latitude,
+        longitude: data.longitude
+      });
+    } catch (error) {
+      console.error('Error updating user status:', error);
+    }
+  });
 
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id)

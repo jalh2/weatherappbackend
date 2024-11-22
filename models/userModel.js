@@ -13,8 +13,8 @@ const userSchema = new Schema({
     required: true,
   },
   activeStatus: {
-    type: String,
-    default: 'none',  // Default value for activeStatus
+    type: Boolean,
+    default: false,  // Default value for activeStatus
   },
   longitude: {
     type: Number,
