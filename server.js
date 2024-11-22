@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
     try {
       // Update user status in database
       await mongoose.model('user').findByIdAndUpdate(
-        data.userId,
+        data._id,
         {
           activeStatus: data.activeStatus,
           latitude: data.latitude,
@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
       
       // Broadcast this update to all connected clients
       io.emit('update-user-status', {
-        _id: data.userId,
+        _id: data._id,
         activeStatus: data.activeStatus,
         latitude: data.latitude,
         longitude: data.longitude
