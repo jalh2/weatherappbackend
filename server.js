@@ -4,18 +4,20 @@ const cors = require('cors');
 const express = require('express')
 const mongoose = require('mongoose')
 const http = require('http');
-const socketIo = require('socket.io')
+const socketIo = require('socket.io');
 
 const userRoutes = require('./routes/user')
 
 const app = express()
-const server = http.createServer(app)
+const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: '*',
-    methods: ['GET', 'POST']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
   }
-})
+});
 
 // middleware
 app.use(express.json())
@@ -25,9 +27,13 @@ app.use((req, res, next) => {
   next()
 })
 
+// Configure CORS middleware
 app.use(cors({
-  origin: '*'
-}))
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 
 app.use('/api/user', userRoutes)
 
