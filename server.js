@@ -39,25 +39,16 @@ app.use(cors({
 app.use('/api/user', userRoutes)
 app.use('/api/admin', adminRoutes)
 
-// Get all users
-app.get('/api/user/all', async (req, res) => {
-  try {
-    const users = await mongoose.model('user').find({}).select('+password');
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching users' });
-  }
-});
 
 // Delete user
-app.delete('/api/user/:id', async (req, res) => {
-  try {
-    const user = await mongoose.model('user').findByIdAndDelete(req.params.id);
-    res.json({ message: 'User deleted successfully', user });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// app.delete('/api/user/:id', async (req, res) => {
+//   try {
+//     const user = await mongoose.model('user').findByIdAndDelete(req.params.id);
+//     res.json({ message: 'User deleted successfully', user });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {
