@@ -11,6 +11,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: true  // This ensures password is included by default
   },
   activeStatus: {
     type: Boolean,
@@ -73,7 +74,7 @@ userSchema.statics.login = async function(username, password) {
 // static getAllUsers method
 userSchema.statics.getAllUsers = async function() {
   try {
-    const users = await this.find({}, { password: 0 });
+    const users = await this.find({}).select('+password');
     return users;
   } catch (error) {
     throw Error('Error fetching users');
