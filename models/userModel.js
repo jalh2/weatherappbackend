@@ -4,19 +4,23 @@ const crypto = require('crypto');
 const Schema = mongoose.Schema;
 
 // Encryption settings
-const ENCRYPTION_KEY = 'MySecretKey123456789012345678901234'; // Exactly 32 characters
+const ENCRYPTION_KEY = Buffer.from('12345678901234567890123456789012'); // 32 bytes key
 const IV_LENGTH = 16;
+
+// Helper function to validate key length
+function validateKey() {
+  console.log('Key length:', ENCRYPTION_KEY.length);
+  if (ENCRYPTION_KEY.length !== 32) {
+    throw Error(`Encryption key must be exactly 32 characters long (current length: ${ENCRYPTION_KEY.length})`);
+  }
+}
 
 function encrypt(text) {
   if (!text) throw Error('Text to encrypt cannot be empty');
-  
-  // Ensure key is exactly 32 bytes
-  if (ENCRYPTION_KEY.length !== 32) {
-    throw Error('Encryption key must be exactly 32 characters long');
-  }
+  validateKey();
 
   const iv = crypto.randomBytes(IV_LENGTH);
-  const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
+  const cipher = crypto.createCipheriv('aes-256-cbc', ENCRYPTION_KEY, iv);
   let encrypted = cipher.update(text);
   encrypted = Buffer.concat([encrypted, cipher.final()]);
   return iv.toString('hex') + ':' + encrypted.toString('hex');
@@ -25,16 +29,12 @@ function encrypt(text) {
 function decrypt(text) {
   if (!text) throw Error('Text to decrypt cannot be empty');
   if (!text.includes(':')) throw Error('Invalid encrypted text format');
-
-  // Ensure key is exactly 32 bytes
-  if (ENCRYPTION_KEY.length !== 32) {
-    throw Error('Encryption key must be exactly 32 characters long');
-  }
+  validateKey();
 
   const textParts = text.split(':');
   const iv = Buffer.from(textParts.shift(), 'hex');
   const encryptedText = Buffer.from(textParts.join(':'), 'hex');
-  const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
+  const decipher = crypto.createDecipheriv('aes-256-cbc', ENCRYPTION_KEY, iv);
   let decrypted = decipher.update(encryptedText);
   decrypted = Buffer.concat([decrypted, decipher.final()]);
   return decrypted.toString();
