@@ -58,4 +58,21 @@ const signupUser = async (req, res) => {
   }
 }
 
-module.exports = { signupUser, loginUser, getAllUsers }
+// delete a user
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.deleteUser(id);
+    res.status(200).json({ message: 'User deleted successfully', user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  loginUser,
+  signupUser,
+  getAllUsers,
+  deleteUser
+};

@@ -49,6 +49,16 @@ app.get('/api/user/all', async (req, res) => {
   }
 });
 
+// Delete user
+app.delete('/api/user/:id', async (req, res) => {
+  try {
+    const user = await mongoose.model('user').findByIdAndDelete(req.params.id);
+    res.json({ message: 'User deleted successfully', user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Socket.IO connection handling
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id)
