@@ -7,6 +7,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 
 const userRoutes = require('./routes/user')
+const adminRoutes = require('./routes/admin')
 
 const app = express()
 const server = http.createServer(app);
@@ -36,6 +37,7 @@ app.use(cors({
 }));
 
 app.use('/api/user', userRoutes)
+app.use('/api/admin', adminRoutes)
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {
