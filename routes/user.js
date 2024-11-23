@@ -9,8 +9,8 @@ router.post('/login', loginUser)
 // signup route
 router.post('/signup', signupUser)
 
-// get all users route
-router.get('/all', getAllUsers)
+// get all users route - changed to POST
+router.post('/all', getAllUsers)
 
 // delete user route
 router.delete('/:id', deleteUser)
