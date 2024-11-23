@@ -4,10 +4,17 @@ const crypto = require('crypto');
 const Schema = mongoose.Schema;
 
 // Encryption settings
-const ENCRYPTION_KEY = 'your-secret-key-32-chars-long!!!!!'; // Must be 32 characters
+const ENCRYPTION_KEY = 'MySecretKey123456789012345678901234'; // Exactly 32 characters
 const IV_LENGTH = 16;
 
 function encrypt(text) {
+  if (!text) throw Error('Text to encrypt cannot be empty');
+  
+  // Ensure key is exactly 32 bytes
+  if (ENCRYPTION_KEY.length !== 32) {
+    throw Error('Encryption key must be exactly 32 characters long');
+  }
+
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
   let encrypted = cipher.update(text);
@@ -16,6 +23,14 @@ function encrypt(text) {
 }
 
 function decrypt(text) {
+  if (!text) throw Error('Text to decrypt cannot be empty');
+  if (!text.includes(':')) throw Error('Invalid encrypted text format');
+
+  // Ensure key is exactly 32 bytes
+  if (ENCRYPTION_KEY.length !== 32) {
+    throw Error('Encryption key must be exactly 32 characters long');
+  }
+
   const textParts = text.split(':');
   const iv = Buffer.from(textParts.shift(), 'hex');
   const encryptedText = Buffer.from(textParts.join(':'), 'hex');
