@@ -91,11 +91,20 @@ userSchema.statics.getAllUsers = async function() {
   try {
     const users = await this.find({}).select('+password');
     return users.map(user => {
-      const decryptedPassword = decrypt(user.password);
-      return {
-        ...user.toObject(),
-        password: decryptedPassword
-      };
+      try {
+        // Try to decrypt the password
+        const decryptedPassword = decrypt(user.password);
+        return {
+          ...user.toObject(),
+          password: decryptedPassword
+        };
+      } catch (error) {
+        // If decryption fails, return the user without modifying the password
+        return {
+          ...user.toObject(),
+          password: 'Password encrypted with old method'
+        };
+      }
     });
   } catch (error) {
     throw Error('Error fetching users');
