@@ -60,4 +60,28 @@ adminSchema.statics.login = async function(username, password) {
     return admin
 }
 
+// static update password method
+adminSchema.statics.updatePassword = async function(username, newPassword) {
+    // validation
+    if (!username || !newPassword) {
+        throw Error('All fields must be filled')
+    }
+
+    const admin = await this.findOne({ username })
+
+    if (!admin) {
+        throw Error('Admin not found')
+    }
+
+    // hash the new password
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(newPassword, salt)
+
+    // update the password
+    admin.password = hash
+    await admin.save()
+
+    return admin
+}
+
 module.exports = mongoose.model('Admin', adminSchema)

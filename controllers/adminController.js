@@ -37,4 +37,16 @@ const loginAdmin = async (req, res) => {
     }
 }
 
-module.exports = { loginAdmin, signupAdmin }
+// update admin password
+const updateAdminPassword = async (req, res) => {
+    const { username, newPassword } = req.body
+
+    try {
+        const admin = await Admin.updatePassword(username, newPassword)
+        res.status(200).json({ message: 'Password updated successfully' })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+module.exports = { loginAdmin, signupAdmin, updateAdminPassword }
